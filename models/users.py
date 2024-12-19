@@ -7,7 +7,6 @@ def create_users_table():
     """Create the users table if it doesn't exist."""
     conn = get_db_connection()
     cursor = conn.cursor()
-    print("Creating users table...") 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             _id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,7 +15,6 @@ def create_users_table():
     """)
     conn.commit()
     conn.close()
-    print("Users table created (or already exists).") 
 
 def add_user(fullname):
     """Add a user to the users table."""

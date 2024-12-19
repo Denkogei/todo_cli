@@ -19,7 +19,6 @@ def create_tasks_table():
     """)
     conn.commit()
     conn.close()
-    print("Tasks table created (or already exists).")
 
 def add_task(title, username):
     """Add a task to the tasks table."""
