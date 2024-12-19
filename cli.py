@@ -18,7 +18,6 @@ def show_main_menu():
 
 def run_cli():
     """Run the command-line interface."""
-    # Ensure the tables are created
     create_users_table()
     create_tasks_table()
 
