@@ -28,12 +28,13 @@ def add_task(title, username):
     user = cursor.fetchone()
     if user:
         user_id = user[0]
-        cursor.execute("INSERT INTO tasks (title, userId) VALUES (?, ?)", (title, user_id))
+        cursor.execute("INSERT INTO tasks (title, userId, status) VALUES (?, ?, ?)", (title, user_id, "pending"))  
         conn.commit()
         print(f"Task '{title}' added for user '{username}'.")
     else:
         print(f"User '{username}' not found. Please add the user first.")
     conn.close()
+
 
 def view_all_tasks():
     """View all tasks."""
@@ -132,3 +133,21 @@ def clear_all_tasks():
     conn.commit()
     conn.close()
     print("All tasks cleared.")
+
+
+def view_task_by_id(task_id):
+    """View a specific task by its ID."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT tasks._id, tasks.title, tasks.status, users.fullname FROM tasks INNER JOIN users ON tasks.userId = users._id WHERE tasks._id = ?", (task_id,))
+    task = cursor.fetchone()
+    if task:
+        task_id, title, status, fullname = task
+        print(f"Task ID: {task_id}")
+        print(f"Title: {title}")
+        print(f"Status: {status}") 
+        print(f"Assigned to: {fullname}")
+    else:
+        print(f"Task with ID {task_id} not found.")
+    conn.close()
+
