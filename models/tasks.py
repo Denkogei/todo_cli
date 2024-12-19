@@ -25,7 +25,6 @@ def add_task(title, username):
     """Add a task to the tasks table."""
     conn = get_db_connection()
     cursor = conn.cursor()
-    # Fetch the user ID based on the username
     cursor.execute("SELECT _id FROM users WHERE fullname = ?", (username,))
     user = cursor.fetchone()
     if user:
